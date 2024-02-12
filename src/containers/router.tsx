@@ -3,8 +3,8 @@ import {
 	createBrowserRouter,
 	RouterProvider,
 } from "react-router-dom";
-import { LoginPage } from "../../pages/login";
-import { RegisterPage } from "../../pages/register";
+import { LoginPage } from "./login";
+import { RegisterPage } from "./register";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         path:"/register",
         element: <RegisterPage />
     }
-])
+]);
 
 export function Router(): ReactElement {
     return (
