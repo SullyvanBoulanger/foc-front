@@ -34,12 +34,10 @@ export function LoginPage(): ReactElement {
 			<p>
 				{errorMessage}
 			</p>
-
-			<p>
-				<NavLink to={'/register'}>
-					Create an account
-				</NavLink>
-			</p>
+			
+			<NavLink to={'/register'}>
+				Create an account
+			</NavLink>
         </div>
     );
 }
