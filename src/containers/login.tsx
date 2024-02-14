@@ -1,60 +1,42 @@
 import React, { ReactElement, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import { useForm } from "../utils/use-form";
-import { LabeledInput } from "../components/LabeledInput";
-
-interface LoginData{
-	usernameOrEmail: string;
-	password: string;
-}
+import Form from "../components/form";
+import Label from "../nectron/label";
+import InputForm from "../components/input-form";
+import Input from "../nectron/input";
+import { api } from "../utils/api";
 
 export function LoginPage(): ReactElement {
-	const {formState, handleInputChange, handleSubmit} = useForm<LoginData>({
+	const initialState: Record<string, string> = {
 		usernameOrEmail: '',
 		password: ''
-	});
+	};
 	const [errorMessage, setErrorMessage] = useState<string>();
 	
-	const onSubmit = ((data: LoginData) => {
-		axios({
-			method: 'post',
-			url: 'http://localhost:8080/api/auth/signin',
-			data: data
-		}).then(response => {
-			if(response.status === 200){
-				// TODO
-				// navigate to
-			}
-		}).catch(reason => setErrorMessage("Your identifiants are incorrect."));
+	const onSubmit = ((data: Record<string, string>) => {
+		api.post('/auth/signin', data)
+			.catch(reason => setErrorMessage("Your identifiants are incorrect."));
 	});
 
-    return (
+	return (
         <div>
-			<form onSubmit={(event) => handleSubmit(event, onSubmit)}>
-				<LabeledInput 
-					label="Username Or Email" 
-					name="usernameOrEmail" 
-					type="text" 
-					value={formState.usernameOrEmail} 
-					onChange={handleInputChange}
-				/>
-
-				<LabeledInput 
-					label="Password" 
-					name="password" 
-					type="password" 
-					value={formState.password} 
-					onChange={handleInputChange}
-				/>
-
-				<input type="submit" value="Log in" />
-			</form>
+			<Form handleSubmit={onSubmit} initialState={initialState}>
+				<Label>
+					Username Or Email
+					<InputForm name="usernameOrEmail"/>
+				</Label>
+				<Label>
+					Password
+					<InputForm type="password" name="password"/>
+				</Label>
+				<Input type="submit" value="Log in" />
+			</Form>
 			<br />
 			{errorMessage}
 			<NavLink to={'/register'}>
 				Create an account
 			</NavLink>
         </div>
-    )
+    );
 }

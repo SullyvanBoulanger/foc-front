@@ -1,20 +1,20 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
-interface UseFormReturn<T> {
-  formState: T;
+interface UseFormReturn {
+  formState: Record<string,string>;
   handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (event: FormEvent<HTMLFormElement>, onSubmit: (data: T) => void) => void;
+  handleSubmit: (event: FormEvent<HTMLFormElement>, onSubmit: (data: Record<string,string>) => void) => void;
 }
 
-export function useForm<T>(initialState: T): UseFormReturn<T> {
-  const [formState, setFormState] = useState<T>(initialState);
+export function useForm(initialState?: Record<string, string>): UseFormReturn {
+  const [formState, setFormState] = useState<Record<string, string>>(initialState || {});
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>, onSubmit: (data: T) => void) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>, onSubmit: (data: Record<string, string>) => void) => {
     event.preventDefault();
     onSubmit(formState);
   };
