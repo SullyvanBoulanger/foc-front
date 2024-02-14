@@ -1,18 +1,18 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 import Input, { InputProps } from "../nectron/input";
+import { FormContext } from "./form";
 
 interface InputFormProps extends InputProps {
-    
+    name: string
 }
 
 export default function InputForm({
-    children,
+    name,
     ...props
-}: InputProps): ReactElement{
-    // TODO UseContext
+}: InputFormProps): ReactElement{
+    const {formState, handleInputChange} = useContext(FormContext);
+
     return (
-        <Input {...props}>
-            {children}
-        </Input>
+        <Input name={name} onChange={handleInputChange} value={formState[name]} {...props}/>
     );
 }

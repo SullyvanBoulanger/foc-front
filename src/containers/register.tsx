@@ -1,78 +1,55 @@
 import axios from "axios";
 import { ReactElement, useState } from "react";
-import { useForm } from "../utils/use-form";
-import { LabeledInput } from "../components/LabeledInput";
-
-type RegisterData = {
-	username : string
-    email : string
-	password : string
-    passwordConfirmation : string
-}
+import Form from "../components/form";
+import Label from "../nectron/label";
+import InputForm from "../components/input-form";
+import Input from "../nectron/input";
+import { api } from "../utils/api";
 
 export function RegisterPage(): ReactElement {
-    const {formState, handleSubmit, handleInputChange} = useForm<RegisterData>({
-        username : '',
-        email : '',
-        password : '',
-        passwordConfirmation : ''
-    });
     const [errorMessage, setErrorMessage] = useState<string>();
+
+    const initialState : Record<string, string> = {
+            username : '',
+            email : '',
+            password : '',
+            passwordConfirmation : ''
+        }
 	
-	const onSubmit = (data: RegisterData) => {
-		console.log(data);
+	const onSubmit = (data: Record<string, string>) => {
         if(data.password !== data.passwordConfirmation){
             setErrorMessage("Your passwords do no match")
         }else{
             setErrorMessage('');
             const {passwordConfirmation, ...body} = data;
-            axios({
-                method: 'post',
-                url: 'http://localhost:8080/api/auth/signup',
-                data: body
-            }).catch(reason => setErrorMessage(reason));
+            api.post('/auth/signup', body)
+                .catch(reason => setErrorMessage(reason));
         }
 	};
 
     return (
         <div>
-			<form onSubmit={(event) => handleSubmit(event, onSubmit)}>
-                <LabeledInput
-                    label="Username"
-                    type="text"
-                    name="username"
-                    value={formState.username}
-                    onChange={handleInputChange}
-                />
+            <Form initialState={initialState} handleSubmit={onSubmit}>
+                <Label>
+					Username
+					<InputForm name="username"/>
+				</Label>
+                <Label>
+					Email
+					<InputForm name="email" type="email"/>
+				</Label>
+				<Label>
+					Password
+					<InputForm type="password" name="password"/>
+				</Label>
+                <Label>
+					Password Confirmation
+					<InputForm type="password" name="passwordConfirmation"/>
+				</Label>
+				<Input type="submit" value="Register" />
                 <br/>
-                <LabeledInput
-                    label="Email"
-                    type="text"
-                    name="email"
-                    value={formState.email}
-                    onChange={handleInputChange}
-                />
-                <br/>
-				<LabeledInput
-                    label="Password"
-                    type="password"
-                    name="password"
-                    value={formState.password}
-                    onChange={handleInputChange}
-                />
-                <br/>
-                <LabeledInput
-                    label="Password Confirmation"
-                    type="password"
-                    name="passwordConfirmation"
-                    value={formState.passwordConfirmation}
-                    onChange={handleInputChange}
-                />
-                <br/>
-				<input type="submit" value="Register" />
-			</form>
-            <br/>
-            {errorMessage}
+                {errorMessage}
+            </Form>
         </div>
     )
 }
