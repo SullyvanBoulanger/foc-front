@@ -1,11 +1,12 @@
 import React, { ReactElement, useState } from "react";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import Form from "../components/form";
-import Label from "../nectron/label";
-import InputForm from "../components/input-form";
-import Input from "../nectron/input";
-import { api } from "../utils/api";
+import Form from "@components/Form";
+import Label from "@nectron/Label";
+import InputForm from "@components/InputForm";
+import Input from "@nectron/Input";
+import { api } from "@utils/api";
+import { PrimitiveTypes } from "@utils/UseForm";
+import Button from "@nectron/Button";
 
 export function LoginPage(): ReactElement {
 	const initialState: Record<string, string> = {
@@ -14,14 +15,14 @@ export function LoginPage(): ReactElement {
 	};
 	const [errorMessage, setErrorMessage] = useState<string>();
 	
-	const onSubmit = ((data: Record<string, string>) => {
+	const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
 		api.post('/auth/signin', data)
 			.catch(reason => setErrorMessage("Your identifiants are incorrect."));
 	});
 
 	return (
         <div>
-			<Form handleSubmit={onSubmit} initialState={initialState}>
+			<Form handleSubmit={onSubmit} formDefaultValue={initialState}>
 				<Label>
 					Username Or Email
 					<InputForm name="usernameOrEmail"/>
@@ -30,13 +31,20 @@ export function LoginPage(): ReactElement {
 					Password
 					<InputForm type="password" name="password"/>
 				</Label>
-				<Input type="submit" value="Log in" />
+				<Button type="submit">
+					Login
+				</Button>
 			</Form>
-			<br />
-			{errorMessage}
-			<NavLink to={'/register'}>
-				Create an account
-			</NavLink>
+
+			<p>
+				{errorMessage}
+			</p>
+
+			<p>
+				<NavLink to={'/register'}>
+					Create an account
+				</NavLink>
+			</p>
         </div>
     );
 }

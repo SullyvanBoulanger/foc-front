@@ -3,8 +3,8 @@ import {
 	createBrowserRouter,
 	RouterProvider,
 } from "react-router-dom";
-import { LoginPage } from "./login";
-import { RegisterPage } from "./register";
+import { LoginPage } from "./Login";
+import { RegisterPage } from "./Register";
 
 const router = createBrowserRouter([
     {

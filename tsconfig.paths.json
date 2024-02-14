@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl" : "./src",
+        "paths": {
+        "@components/*": ["./components/*"],
+        "@containers/*": ["./containers/*"],
+        "@nectron/*": ["./nectron/*"],
+        "@utils/*": ["./utils/*"]
+        }
+    }
+}
