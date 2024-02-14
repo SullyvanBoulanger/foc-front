@@ -3,16 +3,11 @@ import { NavLink } from "react-router-dom";
 import Form from "@components/Form";
 import Label from "@nectron/Label";
 import InputForm from "@components/InputForm";
-import Input from "@nectron/Input";
 import { api } from "@utils/api";
 import { PrimitiveTypes } from "@utils/UseForm";
 import Button from "@nectron/Button";
 
 export function LoginPage(): ReactElement {
-	const initialState: Record<string, string> = {
-		usernameOrEmail: '',
-		password: ''
-	};
 	const [errorMessage, setErrorMessage] = useState<string>();
 	
 	const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
@@ -22,7 +17,7 @@ export function LoginPage(): ReactElement {
 
 	return (
         <div>
-			<Form handleSubmit={onSubmit} formDefaultValue={initialState}>
+			<Form handleSubmit={onSubmit}>
 				<Label>
 					Username Or Email
 					<InputForm name="usernameOrEmail"/>

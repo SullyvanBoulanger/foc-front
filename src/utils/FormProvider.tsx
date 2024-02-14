@@ -12,10 +12,10 @@ export const FormContext = createContext<FormContextType>({
 });
 
 export default function FormProvider({children}: PropsWithChildren): ReactElement{
-    const [formState, setFormState] = useState<Record<string, PrimitiveTypes>>();
+    const [formState, setFormState] = useState<Record<string, PrimitiveTypes>>({});
 
     const providedValues = useMemo(() => {
-        return { formState: formState || {}, setFormState };
+        return { formState: formState, setFormState };
     }, [formState, setFormState]);
 
     return(

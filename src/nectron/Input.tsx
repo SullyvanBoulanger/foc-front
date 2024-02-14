@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes, PropsWithChildren } from "react";
 
-export interface InputProps 
-    extends PropsWithChildren<InputHTMLAttributes<HTMLInputElement>>{}
+export type InputProps
+    = PropsWithChildren<InputHTMLAttributes<HTMLInputElement>>;
 
 export default function Input({
     children, 

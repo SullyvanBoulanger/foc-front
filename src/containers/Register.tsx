@@ -8,13 +8,6 @@ import Button from "@nectron/Button";
 
 export function RegisterPage(): ReactElement {
     const [errorMessage, setErrorMessage] = useState<string>('');
-
-    const initialState : Record<string, string> = {
-            username : '',
-            email : '',
-            password : '',
-            passwordConfirmation : ''
-        }
 	
 	const onSubmit = (data: Record<string, PrimitiveTypes>) => {
         if(data.password !== data.passwordConfirmation){
@@ -29,7 +22,7 @@ export function RegisterPage(): ReactElement {
 
     return (
         <div>
-            <Form formDefaultValue={initialState} handleSubmit={onSubmit}>
+            <Form handleSubmit={onSubmit}>
                 <Label>
                     Username
                     <InputForm name="username"/>
