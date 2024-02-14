@@ -1,12 +1,12 @@
+import { api } from '@utils/api';
 import React, { ReactElement } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
-import axios from 'axios';
-import { LoginPage } from './Login';
-import { RegisterPage } from './Register';
-import CardDetailsPage from './card-details/card-details';
+import CardDetailsPage from './card-details/CardDetails';
+import LoginPage from './Login';
+import RegisterPage from './Register';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   {
     path: '/card/:id',
     element: <CardDetailsPage />,
-    loader: async ({ params }) => (await axios.get(`http://localhost:8080/api/card/${params.id}`)).data,
+    loader: async ({ params }) => (await api.get(`/card/${params.id}`)).data,
   },
 ]);
 

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { Card } from '../../models/card';
-import StrongLabelWithDesc from './strong-label-with-desc';
+import { Card } from '../../models/Card';
+import StrongLabelWithDesc from './StrongLabelWithDesc';
 
 export default function CardDetailsPage(): ReactElement {
   const cardData = useLoaderData() as Card;
