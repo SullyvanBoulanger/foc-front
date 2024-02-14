@@ -2,17 +2,18 @@ import React, { DetailedHTMLProps, FormEvent, FormHTMLAttributes, PropsWithChild
 import { PrimitiveTypes, useForm } from "@utils/UseForm";
 import FormProvider from "@utils/FormProvider";
 
-export interface FormProps extends PropsWithChildren<DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>>{
+type FormPropsWithChildren = PropsWithChildren<DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>>;
+
+export interface FormProps extends Omit<FormPropsWithChildren, "defaultValue">{
     handleSubmit : (data: Record<string,PrimitiveTypes>) => void;
-    formDefaultValue : Record<string,PrimitiveTypes>;
+    defaultValue ?: Record<string,PrimitiveTypes>;
 }
 
-const InnerForm = ({handleSubmit, formDefaultValue, children, ...props}: FormProps)=>{
+const InnerForm = ({handleSubmit, defaultValue, children, ...props}: FormProps)=>{
     const {formState} = useForm();
 
     const onSubmit = (event: FormEvent<HTMLFormElement>, onSubmit: (data: Record<string, PrimitiveTypes>) => void) => {
         event.preventDefault();
-        console.log(formState);
         onSubmit(formState);
     };
 
@@ -21,10 +22,10 @@ const InnerForm = ({handleSubmit, formDefaultValue, children, ...props}: FormPro
     </form>)
 }
 
-export default function Form({formDefaultValue: defaultValue, handleSubmit, children, ...props}: FormProps): ReactElement{
+export default function Form({defaultValue, handleSubmit, children, ...props}: FormProps): ReactElement{
     return(
         <FormProvider>
-            <InnerForm handleSubmit={handleSubmit} formDefaultValue={defaultValue} {...props}>
+            <InnerForm handleSubmit={handleSubmit} defaultValue={defaultValue} {...props}>
                 {children}
             </InnerForm>
         </FormProvider>
