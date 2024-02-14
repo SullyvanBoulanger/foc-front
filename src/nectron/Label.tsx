@@ -1,12 +1,13 @@
-import React, { DetailedHTMLProps, LabelHTMLAttributes, PropsWithChildren } from "react";
+import React, { DetailedHTMLProps, LabelHTMLAttributes, PropsWithChildren } from 'react';
 
 export default function Label({
-    children, 
-    ...props
-}: PropsWithChildren<DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>>){
-    return (
-        <label {...props}>
-            {children}
-        </label>
-    )
+  children,
+  ...props
+}: PropsWithChildren<DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>>) {
+  return (
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control
+    <label {...props}>
+      {children}
+    </label>
+  );
 }

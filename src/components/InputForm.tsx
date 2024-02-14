@@ -1,23 +1,23 @@
-import { ChangeEvent, ReactElement, useContext } from "react";
-import Input, { InputProps } from "@nectron/Input";
-import { useField } from "@utils/UseForm";
+import React, { ChangeEvent, ReactElement } from 'react';
+import Input, { InputProps } from '@nectron/Input';
+import { useField } from '@utils/UseForm';
 
 interface InputFormProps extends InputProps {
-    name: string
+  name: string
 }
 
 export default function InputForm({
-    name,
-    ...props
-}: InputFormProps): ReactElement{
-    const {value, setField} = useField(name);
+  name,
+  ...props
+}: InputFormProps): ReactElement {
+  const { value, setField } = useField(name);
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setField(value);
-    };
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value: currentValue } = event.target;
+    setField(currentValue);
+  };
 
-    return (
-        <Input name={name} onChange={handleInputChange} value={value} {...props}/>
-    );
+  return (
+    <Input name={name} onChange={handleInputChange} value={value} {...props} />
+  );
 }
