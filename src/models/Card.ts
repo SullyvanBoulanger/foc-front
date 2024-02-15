@@ -12,7 +12,7 @@ export interface Card {
   set: Set;
   rarity: Rarity;
   attributes: Attribute[];
-  racesTraits: RaceTrait[]
+  raceTraits: RaceTrait[]
 }
 
 interface Type {

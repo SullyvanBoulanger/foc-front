@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
-import CardDetailsPage from './card-details/CardDetails';
+import CardDetailsPage from './card-details/CardDetailsPage';
 import LoginPage from './Login';
 import RegisterPage from './Register';
 
