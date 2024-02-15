@@ -20,13 +20,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl" : "./src",
-    "paths": {
-      "@components/*": ["./components/*"],
-      "@containers/*": ["./containers/*"],
-      "@nectron/*": ["./nectron/*"],
-      "@utils/*": ["./utils/*"]
-    }
+    "baseUrl" : "./src"
   },
   "include": [
     "src"
