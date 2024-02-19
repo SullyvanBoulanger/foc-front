@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Form from '@components/Form';
 import Label from '@nectron/Label';
 import InputForm from '@components/InputForm';
-import { api } from '@utils/api';
+import { api, setJwtToken } from '@utils/api';
 import Button from '@nectron/Button';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 
@@ -12,6 +12,7 @@ export default function LoginPage(): ReactElement {
 
   const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
     api.post('/auth/signin', data)
+      .then((response) => setJwtToken(response.data.token))
       .catch(() => setErrorMessage('Your identifiants are incorrect.'));
   });
 

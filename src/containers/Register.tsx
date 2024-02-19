@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import Form from '@components/Form';
 import Label from '@nectron/Label';
 import InputForm from '@components/InputForm';
-import { api } from '@utils/api';
+import { api, setJwtToken } from '@utils/api';
 import Button from '@nectron/Button';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 
@@ -16,6 +16,7 @@ export default function RegisterPage(): ReactElement {
       setErrorMessage('');
       const { passwordConfirmation, ...body } = data;
       api.post('/auth/signup', body)
+        .then((response) => setJwtToken(response.data.token))
         .catch((reason) => setErrorMessage(reason));
     }
   };

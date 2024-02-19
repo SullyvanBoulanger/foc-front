@@ -15,6 +15,12 @@ export interface Card {
   raceTraits: RaceTrait[]
 }
 
+export type CardPreview = Pick<Card, 'id' | 'url_picture'>;
+
+export interface UserCardPreview extends CardPreview {
+  quantity: number
+}
+
 interface Type {
   id: number;
   name: string;
