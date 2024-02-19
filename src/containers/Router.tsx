@@ -7,6 +7,7 @@ import {
 import CardDetailsPage from './card-details/CardDetailsPage';
 import LoginPage from './Login';
 import RegisterPage from './Register';
+import MyCollectionPage from './my-collection/MyCollectionPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
     path: '/card/:id',
     element: <CardDetailsPage />,
     loader: async ({ params }) => (await api.get(`/card/${params.id}`)).data,
+  },
+  {
+    path: '/my_collection',
+    element: <MyCollectionPage />,
+    loader: async () => (await api.get('/card/my_collection')).data,
   },
 ]);
 
