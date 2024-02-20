@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { PropsWithChildren, ReactElement } from 'react';
 
 type ButtonWithChildren = PropsWithChildren<
@@ -13,9 +14,7 @@ export default function Button({
   return (
     // eslint-disable-next-line react/button-has-type
     <button
-      className={className
-        ? `bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${className}`
-        : 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
+      className={clsx(className, 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded')}
       {...props}
     >
       {children}
