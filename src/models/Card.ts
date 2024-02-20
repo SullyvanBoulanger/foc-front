@@ -12,13 +12,18 @@ export interface Card {
   set: Set;
   rarity: Rarity;
   attributes: Attribute[];
-  raceTraits: RaceTrait[]
+  raceTraits: RaceTrait[];
+}
+
+export interface CardDetails {
+  card : Card;
+  quantity : number | undefined;
 }
 
 export type CardPreview = Pick<Card, 'id' | 'url_picture'>;
 
 export interface UserCardPreview extends CardPreview {
-  quantity: number
+  quantity: number;
 }
 
 interface Type {

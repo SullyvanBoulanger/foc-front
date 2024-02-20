@@ -16,7 +16,7 @@ export default function CardDetail<T>({
 }: CardDetailProps<T>): ReactElement {
   let stat : PrimitiveTypes = '';
 
-  if (isPrimitiveType(desc)) {
+  if (desc !== undefined && isPrimitiveType(desc)) {
     stat = desc;
   } else if (desc && !isPrimitiveType(desc) && propertyName) {
     stat = objectArrayToString(desc as T[], propertyName);
@@ -24,7 +24,7 @@ export default function CardDetail<T>({
 
   return (
     <div>
-      {stat && (
+      {stat !== '' && (
         <p className="text-lg leading-6">
           <Strong>
             {label}
