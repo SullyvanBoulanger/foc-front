@@ -6,7 +6,7 @@ export default function Label({
 }: PropsWithChildren<DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>>) {
   return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
-    <label {...props}>
+    <label className="block mb-2 text-sm font-medium text-gray-900" {...props}>
       {children}
     </label>
   );

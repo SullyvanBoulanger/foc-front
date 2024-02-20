@@ -12,12 +12,15 @@ export default function LoginPage(): ReactElement {
 
   const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
     api.post('/auth/signin', data)
-      .then((response) => setJwtToken(response.data.token))
+      .then((response) => {
+        setJwtToken(response.data.token);
+        setErrorMessage('Logged successfully');
+      })
       .catch(() => setErrorMessage('Your identifiants are incorrect.'));
   });
 
   return (
-    <div>
+    <div className="flex justify-center items-center h-screen">
       <Form handleSubmit={onSubmit}>
         <Label>
           Username Or Email
