@@ -37,7 +37,7 @@ export default function UserProvider({ children }: PropsWithChildren): ReactElem
   );
 
   useEffect(() => {
-    api.get('/auth/refresh')
+    api.get('/auth/user')
       .then((data) => {
         setToken(data.data.jwt);
         setUserLogged(true);
