@@ -4,23 +4,27 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
+import { useUser } from '@utils/UserProvider';
 import CardDetailsPage from './card-details/CardDetailsPage';
 import LoginPage from './Login';
-import RegisterPage from './Register';
 import MyCollectionPage from './my-collection/MyCollectionPage';
+import RegisterPage from './Register';
 
-const router = createBrowserRouter([
+const logoutRouter = createBrowserRouter([
   {
     path: '/',
-    element: <h1>test</h1>,
-  },
-  {
-    path: '/login',
     element: <LoginPage />,
   },
   {
     path: '/register',
     element: <RegisterPage />,
+  },
+]);
+
+const loggedRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <MyCollectionPage />,
   },
   {
     path: '/card/:id',
@@ -30,14 +34,15 @@ const router = createBrowserRouter([
   {
     path: '/my_collection',
     element: <MyCollectionPage />,
-    loader: async () => (await api.get('/card/my_collection')).data,
   },
 ]);
 
 export default function Router(): ReactElement {
+  const { isLogged } = useUser();
+
   return (
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <RouterProvider router={isLogged ? loggedRouter : logoutRouter} />
     </React.StrictMode>
   );
 }

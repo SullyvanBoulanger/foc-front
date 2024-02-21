@@ -1,19 +1,21 @@
+import Form from '@components/Form';
+import InputForm from '@components/InputForm';
+import Button from '@nectron/Button';
+import Label from '@nectron/Label';
+import { PrimitiveTypes } from '@utils/PrimitiveTypes';
+import { useUser } from '@utils/UserProvider';
+import { api } from '@utils/api';
 import React, { ReactElement, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Form from '@components/Form';
-import Label from '@nectron/Label';
-import InputForm from '@components/InputForm';
-import { api, setJwtToken } from '@utils/api';
-import Button from '@nectron/Button';
-import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 
 export default function LoginPage(): ReactElement {
   const [errorMessage, setErrorMessage] = useState<string>();
+  const { setIsLogged } = useUser();
 
   const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
     api.post('/auth/signin', data)
       .then((response) => {
-        setJwtToken(response.data.token);
+        setIsLogged(response.data.token);
         setErrorMessage('Logged successfully');
       })
       .catch(() => setErrorMessage('Your identifiants are incorrect.'));
@@ -34,7 +36,6 @@ export default function LoginPage(): ReactElement {
           Login
         </Button>
       </Form>
-
       <p>
         {errorMessage}
       </p>
