@@ -1,8 +1,10 @@
+import Router from '@containers/Router';
+import TokenProvider from '@utils/TokenProvider';
+import UserProvider from '@utils/UserProvider';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Router from '@containers/Router';
-import reportWebVitals from './reportWebVitals';
 import './index.css';
+import reportWebVitals from './reportWebVitals';
 import './tailwind.css';
 
 const root = ReactDOM.createRoot(
@@ -10,7 +12,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Router />
+    <TokenProvider>
+      <UserProvider>
+        <Router />
+      </UserProvider>
+    </TokenProvider>
   </React.StrictMode>,
 );
 
