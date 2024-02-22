@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <TokenProvider>
-      <UserProvider>
+      <UserProvider refreshUrl="/auth/user">
         <Router />
       </UserProvider>
     </TokenProvider>

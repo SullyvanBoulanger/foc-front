@@ -5,12 +5,15 @@ type ButtonWithChildren = PropsWithChildren<
 React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 >;
 
+interface ButtonProps extends ButtonWithChildren {
+  className?: string;
+}
+
 export default function Button({
   children,
-  // eslint-disable-next-line react/prop-types
   className,
   ...props
-}: ButtonWithChildren): ReactElement {
+}: ButtonProps): ReactElement {
   return (
     // eslint-disable-next-line react/button-has-type
     <button

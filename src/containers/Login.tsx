@@ -4,22 +4,18 @@ import Button from '@nectron/Button';
 import Label from '@nectron/Label';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import { useUser } from '@utils/UserProvider';
-import { api } from '@utils/api';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function LoginPage(): ReactElement {
-  const [errorMessage, setErrorMessage] = useState<string>();
-  const { setIsLogged } = useUser();
+  const { handleSign, message } = useUser();
 
-  const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
-    api.post('/auth/signin', data)
-      .then((response) => {
-        setIsLogged(response.data.token);
-        setErrorMessage('Logged successfully');
-      })
-      .catch(() => setErrorMessage('Your identifiants are incorrect.'));
-  });
+  const onSubmit = ((data: Record<string, PrimitiveTypes>) => handleSign(
+    '/auth/signin',
+    data,
+    '',
+    'Your identifiants are incorrect.',
+  ));
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -37,7 +33,7 @@ export default function LoginPage(): ReactElement {
         </Button>
       </Form>
       <p>
-        {errorMessage}
+        {message}
       </p>
 
       <NavLink to="/register">
