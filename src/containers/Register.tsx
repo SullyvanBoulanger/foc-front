@@ -2,14 +2,13 @@ import React, { ReactElement, useState } from 'react';
 import Form from '@components/Form';
 import Label from '@nectron/Label';
 import InputForm from '@components/InputForm';
-import { api } from '@utils/api';
 import Button from '@nectron/Button';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import { useUser } from '@utils/UserProvider';
 
 export default function RegisterPage(): ReactElement {
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const { setIsLogged } = useUser();
+  const { handleSign, message } = useUser();
 
   const onSubmit = (data: Record<string, PrimitiveTypes>) => {
     if (data.password !== data.passwordConfirmation) {
@@ -17,9 +16,8 @@ export default function RegisterPage(): ReactElement {
     } else {
       setErrorMessage('');
       const { passwordConfirmation, ...body } = data;
-      api.post('/auth/signup', body)
-        .then((response) => setIsLogged(response.data.token))
-        .catch((reason) => setErrorMessage(reason));
+      handleSign('/auth/signup', body, 'Register successfully');
+      setErrorMessage(message);
     }
   };
 
