@@ -11,7 +11,7 @@ interface QuantityProps {
 
 export default function Quantity({ defaultQuantity, cardId }: QuantityProps): ReactElement {
   const [quantity, setQuantity] = useState(defaultQuantity);
-  const [field, setField] = useState<number>();
+  const [field, setField] = useState<number>(1);
   const [lock, setLock] = useState<boolean>(false);
 
   const handlePressed = (url: string) => {
@@ -38,7 +38,7 @@ export default function Quantity({ defaultQuantity, cardId }: QuantityProps): Re
         <Button className="mr-2 text-xl" onClick={() => handlePressed('/card/remove_to_collection')} disabled={lock}>
           -
         </Button>
-        <Input type="number" onChange={handleChange} style={{ width: '100px' }} />
+        <Input type="number" onChange={handleChange} defaultValue={1} style={{ width: '100px' }} />
         <Button className="ml-2 text-xl" onClick={() => handlePressed('/card/add_to_collection')} disabled={lock}>
           +
         </Button>

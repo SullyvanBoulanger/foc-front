@@ -1,11 +1,12 @@
 import React, {
-  Dispatch, PropsWithChildren, ReactElement, SetStateAction, createContext, useContext, useMemo,
+  PropsWithChildren, ReactElement,
+  createContext, useContext, useMemo,
 } from 'react';
 import useStorage from './StorageHook';
 
 interface TokenContextType {
   token: string | undefined;
-  setToken: Dispatch<SetStateAction<string | undefined>>;
+  setToken: (item: string | undefined) => void;
 }
 
 const TokenContext = createContext<TokenContextType>({
@@ -14,7 +15,7 @@ const TokenContext = createContext<TokenContextType>({
 });
 
 export default function TokenProvider({ children }: PropsWithChildren): ReactElement {
-  const [token, setToken] = useStorage('token');
+  const [token, setToken] = useStorage('jwtToken');
   const value = useMemo(() => ({ token, setToken }), [token, setToken]);
 
   return (

@@ -1,23 +1,24 @@
 import {
-  useState, useEffect, type SetStateAction, Dispatch,
+  useState,
 } from 'react';
 
 export default function useStorage(key: string, initialValue?: string)
-  :[string | undefined, Dispatch<SetStateAction<string | undefined>>] {
+  :[string | undefined, (item: string | undefined) => void] {
   const [value, setValue] = useState(
     () => localStorage.getItem(key) ?? initialValue,
   );
 
-  useEffect(() => {
-    if (value === undefined && localStorage.getItem(key)) {
+  const setItem = (item: string | undefined) => {
+    setValue(item);
+    if (item === undefined && localStorage.getItem(key)) {
       localStorage.removeItem(key);
       return;
     }
 
-    if (value === undefined) return;
+    if (item === undefined) return;
 
-    localStorage.setItem(key, value);
-  }, [key, value]);
+    localStorage.setItem(key, item);
+  };
 
-  return [value, setValue];
+  return [value, setItem];
 }
