@@ -8,14 +8,9 @@ import React, { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function LoginPage(): ReactElement {
-  const { handleSign, message } = useUser();
+  const { signin, message } = useUser();
 
-  const onSubmit = ((data: Record<string, PrimitiveTypes>) => handleSign(
-    '/auth/signin',
-    data,
-    '',
-    'Your identifiants are incorrect.',
-  ));
+  const onSubmit = ((data: Record<string, PrimitiveTypes>) => signin(data));
 
   return (
     <div className="flex justify-center items-center h-screen">
