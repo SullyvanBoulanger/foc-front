@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 import { useToken } from './TokenProvider';
-import { api, setJwtToken } from './api';
+import { api } from './api';
 import { PrimitiveTypes } from './PrimitiveTypes';
 
 interface UserContextType {
@@ -39,7 +39,7 @@ export default function UserProvider({ refreshUrl, children }: UserProviderProps
   const [message, setMessage] = useState('');
 
   const setLogged = (token: string) => {
-    setJwtToken(token);
+    setToken(token);
     setUserLogged(true);
   };
 
@@ -51,7 +51,8 @@ export default function UserProvider({ refreshUrl, children }: UserProviderProps
   ) => {
     api.post(url, data)
       .then((response) => {
-        setLogged(response.data.jwt);
+        setLogged(response.data.token);
+        if (messageIfSuccess) setMessage(messageIfSuccess);
       })
       .catch((error) => {
         if (messageIfError) {
@@ -72,9 +73,8 @@ export default function UserProvider({ refreshUrl, children }: UserProviderProps
     if (!loading) return;
 
     api.get(refreshUrl)
-      .then((data) => {
-        setToken(data.data.jwt);
-        setUserLogged(true);
+      .then((response) => {
+        setLogged(response.data.token);
       })
       .catch(() => {
         setToken(undefined);
