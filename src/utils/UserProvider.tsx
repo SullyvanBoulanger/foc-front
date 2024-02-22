@@ -13,18 +13,17 @@ import { PrimitiveTypes } from './PrimitiveTypes';
 
 interface UserContextType {
   isLogged: boolean;
-  handleSign: (
-    url: string,
-    data: Record<string, PrimitiveTypes>,
-    messageIfSuccess?: string,
-    messageIfError?: string,) => void;
+  signin: (data: Record<string, PrimitiveTypes>) => void;
+  signup: (data: Record<string, PrimitiveTypes>) => void;
   message: string;
 }
 
 export const UserContext = createContext<UserContextType>({
   isLogged: false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  handleSign: (url: string, data: any, messageIfSuccess?: string, messageIfError?: string) => {},
+  signin: (data: Record<string, PrimitiveTypes>) => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  signup: (data: Record<string, PrimitiveTypes>) => {},
   message: '',
 });
 
@@ -43,7 +42,7 @@ export default function UserProvider({ refreshUrl, children }: UserProviderProps
     setUserLogged(true);
   };
 
-  const handleSign = (
+  const sign = (
     url: string,
     data: any,
     messageIfSuccess?: string,
@@ -63,9 +62,21 @@ export default function UserProvider({ refreshUrl, children }: UserProviderProps
       });
   };
 
+  const signin = (data: Record<string, PrimitiveTypes>) => sign('/auth/signin', data, '', 'Your identifiants are incorrect');
+  const signup = (data: Record<string, PrimitiveTypes>) => {
+    if (data.passwordConfirmation && data.password !== data.passwordConfirmation) {
+      setMessage('Your passwords do no match');
+      return;
+    }
+    const { passwordConfirmation, ...body } = data;
+    sign('/auth/signup', body, 'Register successfully');
+  };
+
   const providerValue = useMemo<UserContextType>(
     () => (
-      { isLogged: isUserLogged, handleSign, message }),
+      {
+        isLogged: isUserLogged, signin, signup, message,
+      }),
     [isUserLogged, setLogged],
   );
 

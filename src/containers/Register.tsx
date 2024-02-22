@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import Form from '@components/Form';
 import Label from '@nectron/Label';
 import InputForm from '@components/InputForm';
@@ -7,19 +7,9 @@ import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import { useUser } from '@utils/UserProvider';
 
 export default function RegisterPage(): ReactElement {
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const { handleSign, message } = useUser();
+  const { signup, message } = useUser();
 
-  const onSubmit = (data: Record<string, PrimitiveTypes>) => {
-    if (data.password !== data.passwordConfirmation) {
-      setErrorMessage('Your passwords do no match');
-    } else {
-      setErrorMessage('');
-      const { passwordConfirmation, ...body } = data;
-      handleSign('/auth/signup', body, 'Register successfully');
-      setErrorMessage(message);
-    }
-  };
+  const onSubmit = (data: Record<string, PrimitiveTypes>) => signup(data);
 
   return (
     <div>
@@ -45,7 +35,7 @@ export default function RegisterPage(): ReactElement {
         </Button>
       </Form>
       <p>
-        {errorMessage}
+        {message}
       </p>
     </div>
   );
