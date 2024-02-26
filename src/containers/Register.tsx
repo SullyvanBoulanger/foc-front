@@ -7,9 +7,9 @@ import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import { useUser } from '@utils/UserProvider';
 
 export default function RegisterPage(): ReactElement {
-  const { signup, message } = useUser();
+  const { signUp, message } = useUser();
 
-  const onSubmit = (data: Record<string, PrimitiveTypes>) => signup(data);
+  const onSubmit = (data: Record<string, PrimitiveTypes>) => signUp(data);
 
   return (
     <div>
