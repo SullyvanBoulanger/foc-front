@@ -8,7 +8,7 @@ export default function CardDetailsPage(): ReactElement {
   const { card, quantity } = useLoaderData() as CardDetails;
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-auto p-4 mt-16">
       <div className="flex">
         <img src={card.url_picture} alt="CardPicture" className="w-auto h-auto" />
         <div className="ml-6">

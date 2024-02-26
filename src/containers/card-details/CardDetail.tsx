@@ -25,7 +25,7 @@ export default function CardDetail<T>({
   return (
     <div>
       {stat !== '' && (
-        <p className="text-lg leading-6">
+        <p className="text-lg leading-6 w-96">
           <Strong>
             {label}
             :
