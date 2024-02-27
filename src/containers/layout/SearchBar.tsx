@@ -1,19 +1,27 @@
 import Form from '@components/Form';
 import InputForm from '@components/InputForm';
+import SelectForm from '@components/SelectForm';
 import { TCardPreview } from '@models/Card';
+import { Filters } from '@models/Filters';
+import Button from '@nectron/Button';
+import Label from '@nectron/Label';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import { api } from '@utils/api';
 import { debounce } from '@utils/debounce';
 import React, {
   ChangeEvent,
-  Dispatch, ReactElement, SetStateAction,
+  Dispatch, ReactElement, SetStateAction, useEffect, useState,
 } from 'react';
+import InputStatForm from './InputStatForm';
 
 interface SearchBarProps {
   setResult : Dispatch<SetStateAction<TCardPreview[] | undefined>>
 }
 
 export default function SearchBar({ setResult } : SearchBarProps): ReactElement {
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [filters, setFilters] = useState<Filters>();
+
   const constructQuery = (data: Record<string, PrimitiveTypes>): string => {
     let query = '';
 
@@ -29,7 +37,7 @@ export default function SearchBar({ setResult } : SearchBarProps): ReactElement 
   };
 
   const debounceSearchFilterCall = debounce((query: string) => {
-    api.get(`/card/search?${query}`).then((response) => setResult(response.data));
+    api.get(`/card/search?${query}`).then((response) => setResult(response.data)).catch();
   }, 400);
 
   const onSubmit = ((data: Record<string, PrimitiveTypes>) => {
@@ -45,13 +53,51 @@ export default function SearchBar({ setResult } : SearchBarProps): ReactElement 
   const onChange = ((event: ChangeEvent<HTMLInputElement>) => {
     const { value: currentValue } = event.target;
     if (currentValue.length < 3) return;
-
     debounceSearchNameCall(currentValue);
   });
 
+  useEffect(() => {
+    api.get('/card/filters').then((response) => setFilters(response.data));
+  }, []);
+
   return (
     <Form handleSubmit={onSubmit}>
-      <InputForm name="name" type="text" placeholder="Search card name..." onChange={onChange} />
+      <div className="flex gap-1">
+        <InputForm name="name" type="text" placeholder="Search card name..." onChange={onChange} />
+        <Button
+          className="p-0"
+          type="button"
+          onClick={(event) => {
+            event.preventDefault();
+            setIsFilterVisible(!isFilterVisible);
+          }}
+        >
+          <svg className="h-6 w-6 text-black-500" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            {' '}
+            <path stroke="none" d="M0 0h24v24H0z" />
+            {' '}
+            <line x1="4" y1="6" x2="20" y2="6" />
+            {' '}
+            <line x1="4" y1="12" x2="20" y2="12" />
+            {' '}
+            <line x1="4" y1="18" x2="16" y2="18" />
+          </svg>
+        </Button>
+        <div hidden={!isFilterVisible} className="absolute flex justify-center items-center mt-10 border-grey bg-red border-4 p-2 rounded">
+          <Label>
+            Atk
+            <InputStatForm name="atk" handleOnChange={onSubmit} placeholder="Atk..." />
+          </Label>
+          <Label>
+            Def
+            <InputStatForm name="def" handleOnChange={onSubmit} placeholder="Def..." />
+          </Label>
+          <Label>
+            Attributes
+            <SelectForm multiple name="attributes" options={filters?.attributes.map((attribute) => attribute.name) || []} />
+          </Label>
+        </div>
+      </div>
     </Form>
   );
 }
