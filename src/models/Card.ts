@@ -26,28 +26,28 @@ export interface UserCardPreview extends TCardPreview {
   quantity: number;
 }
 
-interface Type {
+export interface Type {
   id: number;
   name: string;
 }
 
-interface Set {
+export interface Set {
   id: number;
   name: string;
   abbreviation: string;
 }
 
-interface Rarity {
+export interface Rarity {
   id: number;
   code: string;
 }
 
-interface Attribute {
+export interface Attribute {
   id: number;
   name: string;
 }
 
-interface RaceTrait {
+export interface RaceTrait {
   id: number;
   name: string;
 }

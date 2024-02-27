@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         // you can either spread `colors` to apply all the colors
         red:"red",
-        black: "black"
+        black: "black",
       }
     },
   },
