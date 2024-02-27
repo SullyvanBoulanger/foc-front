@@ -9,6 +9,7 @@ import CardDetailsPage from './card-details/CardDetailsPage';
 import LoginPage from './Login';
 import MyCollectionPage from './my-collection/MyCollectionPage';
 import RegisterPage from './Register';
+import Layout from './layout/Layout';
 
 const logoutRouter = createBrowserRouter([
   {
@@ -24,16 +25,22 @@ const logoutRouter = createBrowserRouter([
 const loggedRouter = createBrowserRouter([
   {
     path: '/',
-    element: <MyCollectionPage />,
-  },
-  {
-    path: '/card/:id',
-    element: <CardDetailsPage />,
-    loader: async ({ params }) => (await api.get(`/card/${params.id}`)).data,
-  },
-  {
-    path: '/my_collection',
-    element: <MyCollectionPage />,
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <MyCollectionPage />,
+      },
+      {
+        path: '/card/:id',
+        element: <CardDetailsPage />,
+        loader: async ({ params }) => (await api.get(`/card/${params.id}`)).data,
+      },
+      {
+        path: '/my_collection',
+        element: <MyCollectionPage />,
+      },
+    ],
   },
 ]);
 

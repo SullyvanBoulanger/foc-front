@@ -11,10 +11,8 @@ export default function MyCollectionPage(): ReactElement {
   }, []);
 
   return (
-    <div>
-      <div className="flex flex-wrap p-4 items-center justify-center">
-        {cards.map((card) => <StackUserCard {...card} />)}
-      </div>
+    <div className="flex flex-wrap p-4 items-center justify-center">
+      {cards.map((card) => <StackUserCard key={card.id} userCard={card} />)}
     </div>
   );
 }

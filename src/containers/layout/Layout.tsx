@@ -1,24 +1,25 @@
 import { CardPreview } from '@models/Card';
 import Button from '@nectron/Button';
-import React, { PropsWithChildren, ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import ShowResult from './ShowResult';
 
-export default function Layout({ children }: PropsWithChildren): ReactElement {
+export default function Layout(): ReactElement {
   const [searchResult, setSearchResult] = useState<CardPreview[]>();
 
   return (
     <div>
       <div className="border-b-4 border-grey flex justify-between items-center h-1/10 w-screen p-2 box-border">
-        <a href="/my_collection">
+        <NavLink to="/my_collection" onClick={() => setSearchResult(undefined)}>
           My collection
-        </a>
+        </NavLink>
         <SearchBar setResult={setSearchResult} />
         <Button>
           Logout
         </Button>
       </div>
-      {!searchResult && children}
+      {!searchResult && <Outlet />}
       <ShowResult result={searchResult} />
     </div>
   );
