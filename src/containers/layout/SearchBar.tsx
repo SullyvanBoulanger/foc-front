@@ -83,18 +83,40 @@ export default function SearchBar({ setResult } : SearchBarProps): ReactElement 
             <line x1="4" y1="18" x2="16" y2="18" />
           </svg>
         </Button>
-        <div hidden={!isFilterVisible} className="absolute flex justify-center items-center mt-10 border-grey bg-red border-4 p-2 rounded">
+        <div hidden={!isFilterVisible} className="absolute flex flex-wrap justify-center items-center mt-10 w-1/2 border-grey bg-silver border-4 p-2 rounded mx-auto left-1/2 transform -translate-x-1/2 gap-2">
+          {/* <Label>
+            Collection
+            <Input name="collection" id="collection" type="checkbox" />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control
+            <label htmlFor="collection"> User </label>
+          </Label> */}
           <Label>
             Atk
-            <InputStatForm name="atk" handleOnChange={onSubmit} placeholder="Atk..." />
+            <InputStatForm name="atk" placeholder="Atk..." />
           </Label>
           <Label>
             Def
-            <InputStatForm name="def" handleOnChange={onSubmit} placeholder="Def..." />
+            <InputStatForm name="def" placeholder="Def..." />
           </Label>
           <Label>
-            Attributes
+            Type(s)
+            <SelectForm multiple name="types" options={filters?.types.map((type) => type.name) || []} />
+          </Label>
+          <Label>
+            Attribute(s)
             <SelectForm multiple name="attributes" options={filters?.attributes.map((attribute) => attribute.name) || []} />
+          </Label>
+          <Label>
+            Race/Trait(s)
+            <SelectForm multiple name="raceTraits" options={filters?.raceTraits.map((raceTrait) => raceTrait.name) || []} />
+          </Label>
+          <Label>
+            Set(s)
+            <SelectForm multiple name="sets" options={filters?.sets.map((set) => set.abbreviation) || []} />
+          </Label>
+          <Label>
+            Rarity(ies)
+            <SelectForm multiple name="rarities" options={filters?.rarities.map((rarity) => rarity.code) || []} />
           </Label>
         </div>
       </div>

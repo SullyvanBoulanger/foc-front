@@ -8,6 +8,8 @@ module.exports = {
         // you can either spread `colors` to apply all the colors
         red:"red",
         black: "black",
+        grey: "grey",
+        silver: "silver"
       }
     },
   },
