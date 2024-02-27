@@ -1,4 +1,4 @@
-import { CardPreview } from '@models/Card';
+import { TCardPreview } from '@models/Card';
 import Button from '@nectron/Button';
 import React, {
   ReactElement, createContext, useMemo, useState,
@@ -10,7 +10,7 @@ import ShowResult from './ShowResult';
 export const SearchContext = createContext<() => void>(() => null);
 
 export default function Layout(): ReactElement {
-  const [searchResult, setSearchResult] = useState<CardPreview[]>();
+  const [searchResult, setSearchResult] = useState<TCardPreview[]>();
 
   const emptySearchResult = useMemo(() => () => setSearchResult(undefined), []);
 

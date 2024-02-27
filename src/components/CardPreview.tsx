@@ -1,9 +1,9 @@
 import { SearchContext } from '@containers/layout/Layout';
-import { CardPreview } from '@models/Card';
+import { TCardPreview } from '@models/Card';
 import React, { ReactElement, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function CardPreviewComponent({ id, url_picture }: CardPreview): ReactElement {
+export default function CardPreview({ id, url_picture }: TCardPreview): ReactElement {
   const emptySearchResult = useContext(SearchContext);
 
   return (

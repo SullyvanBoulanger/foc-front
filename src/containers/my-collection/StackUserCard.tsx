@@ -1,4 +1,4 @@
-import CardPreviewComponent from '@components/CardPreview';
+import CardPreview from '@components/CardPreview';
 import { UserCardPreview } from '@models/Card';
 import React, { Key, ReactElement } from 'react';
 
@@ -17,7 +17,7 @@ export default function StackUserCard({
       {[...Array(quantity)].map(
         () => (
           <div key={key} className="p-1">
-            <CardPreviewComponent {...card} />
+            <CardPreview {...card} />
           </div>
         ),
       )}

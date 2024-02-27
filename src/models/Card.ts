@@ -20,9 +20,9 @@ export interface CardDetails {
   quantity : number | undefined;
 }
 
-export type CardPreview = Pick<Card, 'id' | 'url_picture'>;
+export type TCardPreview = Pick<Card, 'id' | 'url_picture'>;
 
-export interface UserCardPreview extends CardPreview {
+export interface UserCardPreview extends TCardPreview {
   quantity: number;
 }
 

@@ -1,10 +1,10 @@
-import CardPreviewComponent from '@components/CardPreview';
-import { CardPreview } from '@models/Card';
+import CardPreview from '@components/CardPreview';
+import { TCardPreview } from '@models/Card';
 import Strong from '@nectron/Strong';
 import React, { ReactElement } from 'react';
 
 interface ShowResultProps {
-  result: CardPreview[] | undefined
+  result: TCardPreview[] | undefined
 }
 
 export default function ShowResult({ result }: ShowResultProps): ReactElement {
@@ -20,7 +20,7 @@ export default function ShowResult({ result }: ShowResultProps): ReactElement {
         results
       </Strong>
       <div className="flex flex-wrap items-center justify-center gap-2 p-4">
-        {result.map((value) => <CardPreviewComponent {...value} />)}
+        {result.map((value) => <CardPreview {...value} />)}
       </div>
     </div>
   );

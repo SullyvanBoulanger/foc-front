@@ -1,6 +1,6 @@
 import Form from '@components/Form';
 import InputForm from '@components/InputForm';
-import { CardPreview } from '@models/Card';
+import { TCardPreview } from '@models/Card';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import { api } from '@utils/api';
 import { debounce } from '@utils/debounce';
@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 interface SearchBarProps {
-  setResult : Dispatch<SetStateAction<CardPreview[] | undefined>>
+  setResult : Dispatch<SetStateAction<TCardPreview[] | undefined>>
 }
 
 export default function SearchBar({ setResult } : SearchBarProps): ReactElement {
