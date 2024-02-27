@@ -8,10 +8,10 @@ interface InputFormProps extends InputProps {
 
 export default function InputForm({
   name,
+  onChange,
   ...props
 }: InputFormProps): ReactElement {
   const { value, setField } = useField(name);
-  const { onChange, ...rest } = props;
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: currentValue } = event.target;
@@ -20,6 +20,6 @@ export default function InputForm({
   };
 
   return (
-    <Input name={name} onChange={handleInputChange} value={value} {...rest} />
+    <Input name={name} onChange={handleInputChange} value={value} {...props} />
   );
 }

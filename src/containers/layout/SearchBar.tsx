@@ -17,11 +17,11 @@ export default function SearchBar({ setResult } : SearchBarProps): ReactElement 
   const constructQuery = (data: Record<string, PrimitiveTypes>): string => {
     let query = '';
 
-    ['name'].forEach((value) => {
-      if (data[value]) {
+    Object.entries(data).forEach(([key, value]) => {
+      if (value) {
         query = query === ''
-          ? `${query + value}=${data[value]}`
-          : `${query}&${value}=${data[value]}`;
+          ? `${query + key}=${value}`
+          : `${query}&${key}=${value}`;
       }
     });
 

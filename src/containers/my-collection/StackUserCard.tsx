@@ -1,14 +1,22 @@
 import CardPreviewComponent from '@components/CardPreview';
 import { UserCardPreview } from '@models/Card';
-import React, { ReactElement } from 'react';
+import React, { Key, ReactElement } from 'react';
 
-export default function StackUserCard({ quantity, ...card }: UserCardPreview): ReactElement {
+interface StackUserCardProps {
+  key : Key;
+  userCard : UserCardPreview
+}
+
+export default function StackUserCard({
+  key,
+  userCard: { quantity, ...card },
+}: StackUserCardProps): ReactElement {
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {[...Array(quantity)].map(
         () => (
-          <div className="p-1">
+          <div key={key} className="p-1">
             <CardPreviewComponent {...card} />
           </div>
         ),
