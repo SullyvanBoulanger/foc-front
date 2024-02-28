@@ -1,4 +1,3 @@
-import SelectForm from '@components/SelectForm';
 import Label from '@nectron/Label';
 import { api } from '@utils/api';
 import React, {
@@ -9,6 +8,7 @@ import { useForm } from '@utils/UseForm';
 import { PrimitiveTypes } from '@utils/PrimitiveTypes';
 import Input from '@nectron/Input';
 import InputStatForm from './InputStatForm';
+import SelectFilter from './SelectFilter';
 
 interface FilterBarProps {
   isFilterVisible : boolean;
@@ -63,26 +63,11 @@ export default function FilterBar({
         Def
         <InputStatForm name="def" placeholder="Def..." />
       </Label>
-      <Label>
-        Type(s)
-        <SelectForm multiple name="types" options={filters?.types.map((type) => type.name) || []} />
-      </Label>
-      <Label>
-        Attribute(s)
-        <SelectForm multiple name="attributes" options={filters?.attributes.map((attribute) => attribute.name) || []} />
-      </Label>
-      <Label>
-        Race/Trait(s)
-        <SelectForm multiple name="raceTraits" options={filters?.raceTraits.map((raceTrait) => raceTrait.name) || []} />
-      </Label>
-      <Label>
-        Set(s)
-        <SelectForm multiple name="sets" options={filters?.sets.map((set) => set.abbreviation) || []} />
-      </Label>
-      <Label>
-        Rarity(ies)
-        <SelectForm multiple name="rarities" options={filters?.rarities.map((rarity) => rarity.code) || []} />
-      </Label>
+      <SelectFilter label="Type(s)" name="types" options={filters?.types.map((type) => type.name)} />
+      <SelectFilter label="Attribute(s)" name="attributes" options={filters?.attributes.map((attribute) => attribute.name)} />
+      <SelectFilter label="Race/Trait(s)" name="raceTraits" options={filters?.raceTraits.map((raceTrait) => raceTrait.name)} />
+      <SelectFilter label="Set(s)" name="sets" options={filters?.sets.map((set) => set.abbreviation)} />
+      <SelectFilter label="Rarity(ies)" name="rarities" options={filters?.rarities.map((rarity) => rarity.code)} />
     </div>
   );
 }

@@ -2,12 +2,13 @@ import Select, { SelectProps } from '@nectron/Select';
 import { useField } from '@utils/UseForm';
 import React, { ChangeEvent, ReactElement } from 'react';
 
-interface SelectFormProps extends SelectProps {
+export interface SelectFormProps extends SelectProps {
   name : string;
-  options: string[];
 }
 
-export default function SelectForm({ name, options, ...props }: SelectFormProps): ReactElement {
+export default function SelectForm({
+  name, onChange, children, ...props
+}: SelectFormProps): ReactElement {
   const { setField } = useField(name);
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -22,11 +23,12 @@ export default function SelectForm({ name, options, ...props }: SelectFormProps)
     });
 
     setField(fieldValue);
+    if (onChange) onChange(event);
   };
 
   return (
     <Select onChange={handleInputChange} name={name} {...props}>
-      {options.map((value) => <option value={value}>{value}</option>)}
+      {children}
     </Select>
   );
 }
