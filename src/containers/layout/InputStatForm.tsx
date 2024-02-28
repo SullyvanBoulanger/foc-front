@@ -24,7 +24,7 @@ export default function InputStatForm({
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value: currentValue } = event.target;
     setOperator(currentValue);
-    setField(`${currentValue}${inputValue}`);
+    setField(inputValue === '' ? '' : `${currentValue}${inputValue}`);
   };
 
   return (

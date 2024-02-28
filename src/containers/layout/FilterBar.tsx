@@ -12,7 +12,7 @@ import InputStatForm from './InputStatForm';
 
 interface FilterBarProps {
   isFilterVisible : boolean;
-  debounceSubmit : (data: Record<string, PrimitiveTypes>) => void;
+  onSearch : (data: Record<string, PrimitiveTypes>) => void;
 }
 
 export function useFirstRender() {
@@ -27,7 +27,7 @@ export function useFirstRender() {
 
 export default function FilterBar({
   isFilterVisible,
-  debounceSubmit,
+  onSearch,
 }: FilterBarProps): ReactElement {
   const [filters, setFilters] = useState<Filters>();
   const { formState, setFormState } = useForm();
@@ -46,7 +46,7 @@ export default function FilterBar({
   useEffect(() => {
     if (firstRender) return;
 
-    debounceSubmit(formState);
+    onSearch(formState);
   }, [formState]);
 
   return (
