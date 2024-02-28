@@ -75,7 +75,7 @@ export default function SearchBar({ setResult } : SearchBarProps): ReactElement 
             <line x1="4" y1="18" x2="16" y2="18" />
           </svg>
         </Button>
-        <FilterBar debounceSubmit={onSubmit} isFilterVisible={isFilterVisible} />
+        <FilterBar onSearch={onSubmit} isFilterVisible={isFilterVisible} />
       </div>
     </Form>
   );
