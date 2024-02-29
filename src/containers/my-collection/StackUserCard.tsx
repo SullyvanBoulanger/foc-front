@@ -13,9 +13,11 @@ export default function StackUserCard({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {[...Array(quantity)].map(
-        () => (
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (_val, id) => (
           <div className="p-1">
-            <CardPreview {...card} />
+            {/* eslint-disable-next-line react/no-array-index-key */}
+            <CardPreview key={`${card.id}-${id}`} {...card} />
           </div>
         ),
       )}
