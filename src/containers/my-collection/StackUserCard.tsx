@@ -1,14 +1,12 @@
 import CardPreview from '@components/CardPreview';
 import { UserCardPreview } from '@models/Card';
-import React, { Key, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 interface StackUserCardProps {
-  key : Key;
   userCard : UserCardPreview
 }
 
 export default function StackUserCard({
-  key,
   userCard: { quantity, ...card },
 }: StackUserCardProps): ReactElement {
   return (
@@ -16,7 +14,7 @@ export default function StackUserCard({
     <>
       {[...Array(quantity)].map(
         () => (
-          <div key={key} className="p-1">
+          <div className="p-1">
             <CardPreview {...card} />
           </div>
         ),
